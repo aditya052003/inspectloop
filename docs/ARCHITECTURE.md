@@ -1,6 +1,6 @@
 # Architecture
 
-The cloud diagram describes the provided deployment design, not an already running deployment.
+The cloud diagram describes the deployed design. Deployment and a cloud smoke test were completed by the participant on 26 October 2026; see evaluation/cloud-verification.json.
 
 ```mermaid
 flowchart TD

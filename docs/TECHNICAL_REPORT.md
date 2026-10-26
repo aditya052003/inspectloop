@@ -20,9 +20,14 @@ The pipeline resizes to 640 pixels wide while preserving reference aspect ratio,
 Thresholds are explicit in `vision.py`, not learned. This makes the demonstration explainable but limits generalization. The workflow is a deterministic agent/controller, not an LLM agent. It is designed to demonstrate the competition's evidence-changing-action pattern; award eligibility is not asserted.
 
 ## AWS architecture and status
-See `ARCHITECTURE.md` and `template.yaml`. The proposed deployment runs the actual OpenCV workload in a 2 GB x86_64 Lambda container behind HTTP API. The execution role can read/write only the report prefix of its private S3 bucket. Reports include images, metrics, trace, timestamps and human-review state. S3 encryption and a 30-day lifecycle are configured. The frontend sends a shared inspection token for protected operations.
+See `ARCHITECTURE.md` and `template.yaml`. The deployed application runs the actual OpenCV workload in a 2 GB x86_64 Lambda container behind HTTP API. The execution role can read/write only the report prefix of its private S3 bucket. Reports include images, metrics, trace, timestamps and human-review state. S3 encryption and a 30-day lifecycle are configured. The frontend sends a shared inspection token for protected operations.
 
-**Cloud deployment has not been executed.** The Lambda adapter has local event tests; the S3 path has an SDK-stub test. Neither replaces a real AWS invocation. `cloud_check.py` is supplied to produce deployment evidence after the participant deploys. No COOL/Graviton performance claim is made.
+The participant successfully deployed the application in AWS Mumbai (ap-south-1) on 26 October 2026. The cloud verification script reported OpenCV 5.0.0, runtime aws-lambda, S3 storage, HTTP 401 without the token, and successful retrieval of a persisted report. One synthetic inspection request took 431.7 ms end to end; this is not a throughput or latency benchmark. See evaluation/cloud-verification.json and its provenance note. The AWS browser screenshots also show a successful missing-component inspection.
+
+The initial deployment failed because reserving two Lambda concurrent executions conflicted with the account's unreserved concurrency minimum. Removing ReservedConcurrentExecutions resolved deployment. The function now uses account-level unreserved concurrency; API throttling remains configured. No COOL/Graviton claim is made.
+
+Live endpoint: https://620mowl7mj.execute-api.ap-south-1.amazonaws.com
+
 
 ## Evaluation
 The bundled evaluator runs eight scenario families across ten procedural texture seeds, producing 80 related synthetic cases. The observed routing outcomes were 80/80 expected decisions on this local run. Median local engine time was 19.75 ms and p95 was 69.4 ms on the recorded environment. Refer to `evaluation/summary.json` for the machine/software context and `results.csv` for every case. Timing includes image encoding but excludes network, storage, HTTP and Lambda cold starts.
@@ -42,8 +47,42 @@ This is not a safety-critical quality system. Grayscale processing can miss colo
 ## Next validation milestones
 1. Capture permissioned real product pairs with a fixed camera and independently label them.
 2. Freeze thresholds before evaluating a separate set of physical units.
-3. Deploy on AWS and record actual cold/warm end-to-end measurements.
+3. Extend the successful AWS smoke test with repeated cold/warm end-to-end measurements.
 4. Add per-user identity and conditional writes before multi-user deployment.
 5. Explore color-sensitive comparisons and trained detectors only if the labeled data supports them.
 
 AI assistance was used to implement and document the project. The participant must validate and understand the delivered code, add personal evidence, and make any required disclosure in the final submission.
+
+The prototype requests retakes but does not link a follow-up photograph to the earlier inspection. That extended workflow is future work. One real-photo development pair was verified through the cloud workflow as described below. No independent real-photo benchmark or baseline comparison is claimed.
+
+
+## Final real-photo and deployment update — 26 October 2026
+
+The portrait alignment fix replaces the absolute 80-pixel translation limit with
+10% of the normalized image diagonal and requires at least 75% shared image area.
+The existing scale and inlier checks remain. This package includes that fix.
+The earlier synthetic evaluation files predate this fix; they are historical
+development evidence, not a fresh benchmark of the final code.
+
+A separate final-package validation run passed 19 tests, including two alignment
+regressions. This count applies to that package; run the tests in a repository
+checkout to determine its current test count.
+The participant deployed the updated Lambda image successfully and supplied an
+exported cloud report. The report is included as
+evaluation/real-photo-cloud-report.json in the final submission archive. It records:
+
+- OpenCV 5.0.0; status review; 17 regions; 3.188% changed area.
+- Engine time 2772 ms for this single request; not an end-to-end benchmark.
+- Human decision confirmed, with the note: Eraser is missing from the candidate
+  photo. Other flagged areas appear to be background or alignment differences.
+
+The missing eraser is highlighted. Extra background and object-edge detections
+remain. The pair informed the fix, so it is development data, not held-out data.
+A participant-provided cloud screenshot of an identical-photo check reports
+0 regions, 0% changed area, and 94.4 ms. That checks identical input handling; it
+does not measure false-positive rates on independently recaptured good objects.
+
+No factory trial, quantified user-benefit study, independent accuracy study,
+baseline error comparison, or completed mobile usability test is claimed.
+AI assistance from ChatGPT/Codex was used for code, tests, debugging and writing.
+The participant performed setup, AWS deployment, photography and browser checks.
