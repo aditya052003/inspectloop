@@ -1,0 +1,109 @@
+{
+  "opencv": "5.0.0",
+  "trace": [
+    {
+      "step": 1,
+      "tool": "reference_quality",
+      "evidence": {
+        "brightness": 129.25,
+        "sharpness": 827.74,
+        "clipped_fraction": 0.0
+      },
+      "action": "Validate reference before comparison."
+    },
+    {
+      "step": 2,
+      "tool": "capture_quality",
+      "evidence": {
+        "brightness": 51.41,
+        "sharpness": 129.05,
+        "clipped_fraction": 0.0
+      },
+      "action": "Select recovery, alignment, or a new capture."
+    },
+    {
+      "step": 3,
+      "tool": "exposure_recovery",
+      "evidence": {
+        "gain": 2.51,
+        "recovered_quality": {
+          "brightness": 128.99,
+          "sharpness": 815.03,
+          "clipped_fraction": 0.0
+        }
+      },
+      "action": "Recheck sharpness after bounded exposure correction."
+    },
+    {
+      "step": 4,
+      "tool": "alignment",
+      "evidence": {
+        "matches": 1298,
+        "inliers": 1261,
+        "scale": 1.0
+      },
+      "action": "Warp candidate into reference coordinates."
+    },
+    {
+      "step": 5,
+      "tool": "difference_map",
+      "evidence": {
+        "changed_percent": 0.827,
+        "candidate_regions": 1,
+        "threshold": 35
+      },
+      "action": "Inspect local regions if changes exist."
+    },
+    {
+      "step": 6,
+      "tool": "roi_refinement",
+      "evidence": {
+        "regions": [
+          {
+            "x": 265,
+            "y": 215,
+            "width": 66,
+            "height": 39,
+            "support": 0.914,
+            "mean_difference": 51.47
+          }
+        ],
+        "min_support": 0.025
+      },
+      "action": "Use local evidence to route to human review; never discard products automatically."
+    },
+    {
+      "step": 7,
+      "tool": "decision",
+      "evidence": {
+        "status": "review"
+      },
+      "action": "Visible changes found. A person must confirm whether these are defects."
+    }
+  ],
+  "quality": {
+    "brightness": 51.41,
+    "sharpness": 129.05,
+    "clipped_fraction": 0.0
+  },
+  "reference_quality": {
+    "brightness": 129.25,
+    "sharpness": 827.74,
+    "clipped_fraction": 0.0
+  },
+  "regions": [
+    {
+      "x": 265,
+      "y": 215,
+      "width": 66,
+      "height": 39,
+      "support": 0.914,
+      "mean_difference": 51.47
+    }
+  ],
+  "changed_percent": 0.827,
+  "policy": "Deterministic inspection policy v1; not a trained classifier or LLM.",
+  "status": "review",
+  "message": "Visible changes found. A person must confirm whether these are defects.",
+  "elapsed_ms": 65.9
+}

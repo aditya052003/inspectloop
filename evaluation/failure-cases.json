@@ -1,0 +1,16 @@
+[
+  {
+    "case": "tiny_defect",
+    "known_change": true,
+    "actual_status": "clear",
+    "regions": 0,
+    "limitation": "Change is below configured spatial or contrast thresholds."
+  },
+  {
+    "case": "low_contrast_change",
+    "known_change": true,
+    "actual_status": "clear",
+    "regions": 0,
+    "limitation": "Change is below configured spatial or contrast thresholds."
+  }
+]

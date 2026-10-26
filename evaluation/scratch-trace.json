@@ -1,0 +1,95 @@
+{
+  "opencv": "5.0.0",
+  "trace": [
+    {
+      "step": 1,
+      "tool": "reference_quality",
+      "evidence": {
+        "brightness": 129.25,
+        "sharpness": 827.74,
+        "clipped_fraction": 0.0
+      },
+      "action": "Validate reference before comparison."
+    },
+    {
+      "step": 2,
+      "tool": "capture_quality",
+      "evidence": {
+        "brightness": 129.51,
+        "sharpness": 950.42,
+        "clipped_fraction": 0.0
+      },
+      "action": "Select recovery, alignment, or a new capture."
+    },
+    {
+      "step": 3,
+      "tool": "alignment",
+      "evidence": {
+        "method": "already aligned",
+        "mean_difference": 0.253
+      },
+      "action": "Compare directly."
+    },
+    {
+      "step": 4,
+      "tool": "difference_map",
+      "evidence": {
+        "changed_percent": 0.244,
+        "candidate_regions": 1,
+        "threshold": 35
+      },
+      "action": "Inspect local regions if changes exist."
+    },
+    {
+      "step": 5,
+      "tool": "roi_refinement",
+      "evidence": {
+        "regions": [
+          {
+            "x": 348,
+            "y": 178,
+            "width": 105,
+            "height": 105,
+            "support": 0.065,
+            "mean_difference": 7.03
+          }
+        ],
+        "min_support": 0.025
+      },
+      "action": "Use local evidence to route to human review; never discard products automatically."
+    },
+    {
+      "step": 6,
+      "tool": "decision",
+      "evidence": {
+        "status": "review"
+      },
+      "action": "Visible changes found. A person must confirm whether these are defects."
+    }
+  ],
+  "quality": {
+    "brightness": 129.51,
+    "sharpness": 950.42,
+    "clipped_fraction": 0.0
+  },
+  "reference_quality": {
+    "brightness": 129.25,
+    "sharpness": 827.74,
+    "clipped_fraction": 0.0
+  },
+  "regions": [
+    {
+      "x": 348,
+      "y": 178,
+      "width": 105,
+      "height": 105,
+      "support": 0.065,
+      "mean_difference": 7.03
+    }
+  ],
+  "changed_percent": 0.244,
+  "policy": "Deterministic inspection policy v1; not a trained classifier or LLM.",
+  "status": "review",
+  "message": "Visible changes found. A person must confirm whether these are defects.",
+  "elapsed_ms": 20.7
+}

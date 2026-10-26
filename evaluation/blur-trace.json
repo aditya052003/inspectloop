@@ -1,0 +1,49 @@
+{
+  "opencv": "5.0.0",
+  "trace": [
+    {
+      "step": 1,
+      "tool": "reference_quality",
+      "evidence": {
+        "brightness": 129.25,
+        "sharpness": 827.74,
+        "clipped_fraction": 0.0
+      },
+      "action": "Validate reference before comparison."
+    },
+    {
+      "step": 2,
+      "tool": "capture_quality",
+      "evidence": {
+        "brightness": 129.25,
+        "sharpness": 0.75,
+        "clipped_fraction": 0.0
+      },
+      "action": "Select recovery, alignment, or a new capture."
+    },
+    {
+      "step": 3,
+      "tool": "decision",
+      "evidence": {
+        "status": "retake"
+      },
+      "action": "Capture again: hold the camera steady and focus on the product."
+    }
+  ],
+  "quality": {
+    "brightness": 129.25,
+    "sharpness": 0.75,
+    "clipped_fraction": 0.0
+  },
+  "reference_quality": {
+    "brightness": 129.25,
+    "sharpness": 827.74,
+    "clipped_fraction": 0.0
+  },
+  "regions": [],
+  "changed_percent": 0,
+  "policy": "Deterministic inspection policy v1; not a trained classifier or LLM.",
+  "status": "retake",
+  "message": "Capture again: hold the camera steady and focus on the product.",
+  "elapsed_ms": 15.4
+}

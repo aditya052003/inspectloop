@@ -1,0 +1,16 @@
+{
+  "dataset": "80 procedural synthetic cases; 8 scenarios \u00d7 10 texture seeds. Correlated fixtures, not independent field data.",
+  "opencv": "5.0.0",
+  "python": "3.12.14",
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+  "cases": 80,
+  "correct_routes": 80,
+  "median_ms": 19.75,
+  "p95_ms": 69.4,
+  "measurement": "Local vision engine only, including PNG encoding. Excludes HTTP, storage, Lambda cold starts and network.",
+  "limitations": [
+    "Fixed thresholds tuned on these synthetic fixture families.",
+    "No real-world accuracy, defect classification, or AWS benchmark claimed.",
+    "Low-contrast and tiny defects may be missed; lighting and viewpoint changes may cause false alarms."
+  ]
+}

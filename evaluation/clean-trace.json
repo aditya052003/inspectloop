@@ -1,0 +1,68 @@
+{
+  "opencv": "5.0.0",
+  "trace": [
+    {
+      "step": 1,
+      "tool": "reference_quality",
+      "evidence": {
+        "brightness": 129.25,
+        "sharpness": 827.74,
+        "clipped_fraction": 0.0
+      },
+      "action": "Validate reference before comparison."
+    },
+    {
+      "step": 2,
+      "tool": "capture_quality",
+      "evidence": {
+        "brightness": 129.25,
+        "sharpness": 827.74,
+        "clipped_fraction": 0.0
+      },
+      "action": "Select recovery, alignment, or a new capture."
+    },
+    {
+      "step": 3,
+      "tool": "alignment",
+      "evidence": {
+        "method": "already aligned",
+        "mean_difference": 0.0
+      },
+      "action": "Compare directly."
+    },
+    {
+      "step": 4,
+      "tool": "difference_map",
+      "evidence": {
+        "changed_percent": 0.0,
+        "candidate_regions": 0,
+        "threshold": 35
+      },
+      "action": "Inspect local regions if changes exist."
+    },
+    {
+      "step": 5,
+      "tool": "decision",
+      "evidence": {
+        "status": "clear"
+      },
+      "action": "No significant visual change detected at these thresholds. This is not a quality guarantee."
+    }
+  ],
+  "quality": {
+    "brightness": 129.25,
+    "sharpness": 827.74,
+    "clipped_fraction": 0.0
+  },
+  "reference_quality": {
+    "brightness": 129.25,
+    "sharpness": 827.74,
+    "clipped_fraction": 0.0
+  },
+  "regions": [],
+  "changed_percent": 0.0,
+  "policy": "Deterministic inspection policy v1; not a trained classifier or LLM.",
+  "status": "clear",
+  "message": "No significant visual change detected at these thresholds. This is not a quality guarantee.",
+  "elapsed_ms": 50.5
+}

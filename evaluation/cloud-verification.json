@@ -1,0 +1,15 @@
+{
+  "verified_at": "2026-10-26T11:41:28.526903+00:00",
+  "endpoint": "https://620mowl7mj.execute-api.ap-south-1.amazonaws.com",
+  "health": {
+    "opencv": "5.0.0",
+    "runtime": "aws-lambda",
+    "status": "ok",
+    "storage": "s3"
+  },
+  "report_id": "e50d6b36689a4fadbf6f33205639bf6b",
+  "unauthenticated_inspection_status": 401,
+  "persisted_report_retrieved": true,
+  "single_request_wall_ms": 431.7,
+  "note": "One synthetic cloud smoke test, not a load benchmark. S3 verified through application retrieval; separately inspect the bucket."
+}

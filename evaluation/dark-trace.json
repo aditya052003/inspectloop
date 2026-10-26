@@ -1,0 +1,49 @@
+{
+  "opencv": "5.0.0",
+  "trace": [
+    {
+      "step": 1,
+      "tool": "reference_quality",
+      "evidence": {
+        "brightness": 129.25,
+        "sharpness": 827.74,
+        "clipped_fraction": 0.0
+      },
+      "action": "Validate reference before comparison."
+    },
+    {
+      "step": 2,
+      "tool": "capture_quality",
+      "evidence": {
+        "brightness": 7.19,
+        "sharpness": 2.76,
+        "clipped_fraction": 0.0712
+      },
+      "action": "Select recovery, alignment, or a new capture."
+    },
+    {
+      "step": 3,
+      "tool": "decision",
+      "evidence": {
+        "status": "retake"
+      },
+      "action": "Capture again with even lighting; too much information is missing."
+    }
+  ],
+  "quality": {
+    "brightness": 7.19,
+    "sharpness": 2.76,
+    "clipped_fraction": 0.0712
+  },
+  "reference_quality": {
+    "brightness": 129.25,
+    "sharpness": 827.74,
+    "clipped_fraction": 0.0
+  },
+  "regions": [],
+  "changed_percent": 0,
+  "policy": "Deterministic inspection policy v1; not a trained classifier or LLM.",
+  "status": "retake",
+  "message": "Capture again with even lighting; too much information is missing.",
+  "elapsed_ms": 9.9
+}

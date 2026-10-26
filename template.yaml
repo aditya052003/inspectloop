@@ -1,0 +1,79 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: InspectLoop - OpenCV 5 inspection on AWS Lambda with private S3 evidence
+Parameters:
+  InspectToken:
+    Type: String
+    NoEcho: true
+    MinLength: 24
+    Description: Shared judge access token. Choose a random string; do not commit it.
+Resources:
+  Reports:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      LifecycleConfiguration:
+        Rules:
+          - Id: ExpireDemoEvidence
+            Status: Enabled
+            ExpirationInDays: 30
+  Api:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      StageName: '$default'
+      DefaultRouteSettings:
+        ThrottlingBurstLimit: 5
+        ThrottlingRateLimit: 2
+  Inspection:
+    Type: AWS::Serverless::Function
+    Metadata:
+      DockerTag: inspectloop-v1
+      DockerContext: .
+      Dockerfile: Dockerfile
+    Properties:
+      PackageType: Image
+      Architectures: [x86_64]
+      MemorySize: 2048
+      Timeout: 28
+      
+      Environment:
+        Variables:
+          REPORT_BUCKET: !Ref Reports
+          INSPECT_TOKEN: !Ref InspectToken
+          OPENCV_IO_MAX_IMAGE_PIXELS: '12000000'
+      Policies:
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action: [s3:GetObject, s3:PutObject]
+              Resource: !Sub '${Reports.Arn}/reports/*'
+      Events:
+        Root:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref Api
+            Path: /
+            Method: ANY
+        Proxy:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref Api
+            Path: /{proxy+}
+            Method: ANY
+Outputs:
+  Endpoint:
+    Value: !Sub 'https://${Api}.execute-api.${AWS::Region}.${AWS::URLSuffix}'
+  EvidenceBucket:
+    Value: !Ref Reports
+  FunctionName:
+    Value: !Ref Inspection
